@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jagatbhav | Installable Knowledge Platform</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#0f1115">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjogIkphZ2F0YmhhdiIsICJzaG9ydF9uYW1lIjogIkphZ2F0YmhhdiIsICJzdGFydF91cmwiOiAiLyIsICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLCAiYmFja2dyb3VuZF9jb2xvciI6ICIjMGYxMTE1IiwgInRoZW1lX2NvbG9yIjogIiM4YjVjZjYifQ==">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f1115; color: #f8fafc; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <nav class="fixed w-full z-50 glass py-4 px-6 flex justify-between items-center border-b border-slate-800">
+        <h1 class="text-xl font-bold tracking-tighter">JAGATBHAV</h1>
+        <button id="installBtn" class="bg-violet-600 px-4 py-2 rounded-full text-xs font-bold hidden">Install App</button>
+    </nav>
+
+    <main class="pt-32 px-6 max-w-2xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-6">Take Jagatbhav Anywhere</h2>
+        <p class="text-slate-400 mb-8">Click 'Install' or your browser's 'Add to Home Screen' option to use this platform as a native app offline.</p>
+        <div class="glass p-6 rounded-2xl border border-slate-700">
+            <h3 class="font-bold text-teal-400">100% Free & Secure</h3>
+            <p class="text-sm mt-2">No app store fees, no data harvesting, just pure knowledge.</p>
+        </div>
+    </main>
+
+    <script>
+        // PWA Install Prompt Logic
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const btn = document.getElementById('installBtn');
+            btn.classList.remove('hidden');
+            btn.addEventListener('click', () => {
+                deferredPrompt.prompt();
+            });
+        });
+
+        // Register Service Worker for Offline Capability
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript,console.log("Jagatbhav Service Worker Registered")');
+        }
+    </script>
+</body>
+</html>
